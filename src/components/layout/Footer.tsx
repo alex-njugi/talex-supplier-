@@ -3,6 +3,7 @@ import Container from "./Container";
 import SocialLinks from "@/components/ui/SocialLinks";
 import { BRAND } from "@/lib/brand";
 import { Smartphone, Phone, Mail, MapPin, Clock, Navigation } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -39,7 +40,9 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-brand" />
-              <a href="mailto:support@talex.co.ke" className="hover:text-brand">talexsuppliers@gmail.com</a>
+              <a href="mailto:talexsuppliers@gmail.com" className="hover:text-brand">
+                talexsuppliers@gmail.com
+              </a>
             </li>
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 h-4 w-4 text-brand" />
@@ -82,16 +85,14 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Quick links */}
+        {/* Quick links (internal routes use <Link/>) */}
         <div>
           <div className="font-semibold mb-3">Quick Links</div>
           <ul className="space-y-2 text-gray-700">
-            <li><a href="/shop" className="hover:text-brand">Shop All</a></li>
-            <li><a href="/category/car-accessories" className="hover:text-brand">Car Accessories</a></li>
-            <li><a href="/category/power-tools" className="hover:text-brand">Power & Tools</a></li>
-            <li><a href="/track-order" className="hover:text-brand">Track Order</a></li>
-            <li><a href="/support" className="hover:text-brand">Support & FAQs</a></li>
-            <li><a href="/policies/returns" className="hover:text-brand">Returns Policy (7 days)</a></li>
+            <li><Link to="/shop" className="hover:text-brand">Shop All</Link></li>
+            <li><Link to="/shop?category=car-accessories" className="hover:text-brand">Car Accessories</Link></li>
+            <li><Link to="/shop?category=power-tools" className="hover:text-brand">Powerline Tools</Link></li>
+            <li><Link to="/about" className="hover:text-brand">About us</Link></li>
           </ul>
         </div>
       </Container>

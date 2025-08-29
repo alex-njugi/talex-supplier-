@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import { setProducts } from "@/store/slices/productSlice";
 import { BRAND } from "@/lib/brand";
 import { ShieldCheck, Truck, Store, MapPin } from "lucide-react";
-import { Link } from "react-router-dom"; // ✅ use SPA links
+import { Link } from "react-router-dom";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=1920&q=80"; // poster fallback
@@ -34,7 +34,7 @@ export default function Home() {
           price_cents: 80000,
           stock: 12,
           is_active: true,
-          images: [{ url: "https://picsum.photos/seed/talex-swc/600/400" }]
+          images: [{ url: "https://picsum.photos/seed/talex-swc/600/400" }],
         },
         {
           id: "wipers-metal",
@@ -46,7 +46,7 @@ export default function Home() {
           price_cents: 45000,
           stock: 20,
           is_active: true,
-          images: [{ url: "https://picsum.photos/seed/talex-wiper/600/400" }]
+          images: [{ url: "https://picsum.photos/seed/talex-wiper/600/400" }],
         },
         ...Array.from({ length: 6 }).map((_, i) => ({
           id: `feat-${i + 1}`,
@@ -58,17 +58,17 @@ export default function Home() {
           price_cents: 249900,
           stock: i % 3 ? 12 : 0,
           is_active: true,
-          images: [{ url: `https://picsum.photos/seed/talex-${i}/600/400` }]
-        }))
+          images: [{ url: `https://picsum.photos/seed/talex-${i}/600/400` }],
+        })),
       ])
     );
   }, [d]);
 
   return (
     <>
-      {/* HERO — flagship finish: gradient-border glass, single CTA with VIDEO background */}
+      {/* HERO — video bg, NO white fade */}
       <section className="relative isolate overflow-hidden">
-        {/* Background video + layered vignette (with mobile poster fallback) */}
+        {/* Background video + dark vignette (mobile poster fallback) */}
         <div className="absolute inset-0 pointer-events-none">
           <video
             className="hidden sm:block h-[580px] w-full object-cover object-[center_35%]"
@@ -92,9 +92,8 @@ export default function Home() {
             loading="eager"
           />
 
-          {/* Overlays for readability & soft fade */}
+          {/* Dark overlay only (removed white bottom fade) */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/20" />
-          <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-transparent to-white" />
         </div>
 
         <Container>

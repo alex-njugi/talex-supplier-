@@ -1,8 +1,8 @@
 // src/components/layout/Header.tsx
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Container from "./Container";
 import { Smartphone, ShoppingCart } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppSelector } from "@/store";
 
 export default function Header() {
@@ -27,9 +27,22 @@ export default function Header() {
     };
   }, []);
 
+  // Active state for category links that use query params
+  const location = useLocation();
+  const { isShop, cat } = useMemo(() => {
+    const isShop = location.pathname === "/shop";
+    const params = new URLSearchParams(location.search);
+    const cat = params.get("category"); // "car-accessories" | "power-tools" | null
+    return { isShop, cat };
+  }, [location.pathname, location.search]);
+
+  const catClass = (slug: "car-accessories" | "power-tools") =>
+    isShop && cat === slug
+      ? "text-brand font-semibold"
+      : "text-gray-700 hover:text-gray-900";
+
   return (
     <header
-      // ↑ make sure header is always on top
       className={`sticky top-0 z-[100] backdrop-blur bg-white/60 border-b transition-all ${
         scrolled ? "h-14 shadow-soft" : "h-16"
       }`}
@@ -43,20 +56,25 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          {/* ✅ category links go to /shop?category=... (works from any page) */}
-          <Link
-            to="/shop?category=car-accessories"
-            className="text-gray-700 hover:text-gray-900"
-          >
+          {/* Category links (use query string; manual active styles) */}
+          <Link to="/shop?category=car-accessories" className={catClass("car-accessories")}>
             Car Accessories
           </Link>
-          <Link
-            to="/shop?category=power-tools"
-            className="text-gray-700 hover:text-gray-900"
-          >
+          <Link to="/shop?category=power-tools" className={catClass("power-tools")}>
             Powerline Tools
           </Link>
 
+          {/* About */}
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive ? "text-brand font-semibold" : "text-gray-700 hover:text-gray-900"
+            }
+          >
+            About us
+          </NavLink>
+
+          {/* Cart / Login */}
           <NavLink
             to="/cart"
             className="text-gray-700 hover:text-gray-900 inline-flex items-center gap-1.5"

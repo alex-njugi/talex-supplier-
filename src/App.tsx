@@ -10,12 +10,13 @@ import CartFab from "@/components/cart/CartFab";
 import WhatsAppFab from "@/components/ui/WhatsAppFab";
 import { Toaster } from "react-hot-toast";
 
-// NEW pages
+// pages
 import Shop from "@/pages/Shop";
 import Product from "@/pages/Product";
 import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout";
 import OrderSuccess from "@/pages/OrderSuccess";
+import About from "@/pages/About"; // ✅ new
 
 function Shell() {
   return (
@@ -40,6 +41,7 @@ export default function App() {
     <Routes>
       <Route element={<Shell />}>
         <Route index element={<Home />} />
+        <Route path="/about" element={<About />} /> {/* ✅ new route */}
         <Route path="/shop" element={<Shop />} />
         <Route path="/product/:slug" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
